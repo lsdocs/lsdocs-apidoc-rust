@@ -1,0 +1,24 @@
+[package]
+name = "lsdocs-apidoc-rust"
+description = "First-party plugin documenting Rust crates from rustdoc's JSON output."
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+publish.workspace = true
+
+[lints]
+workspace = true
+
+[dependencies]
+lsdocs-apidoc.workspace = true
+lsdocs-apidoc-plugin.workspace = true
+lsdocs-plugin-sdk.workspace = true
+rustdoc-types.workspace = true
+serde.workspace = true
+serde_json.workspace = true
+
+[dev-dependencies]
+lsdocs-parser-markdown.workspace = true
+lsdocs-parser-rst.workspace = true
+tokio = { workspace = true, features = ["macros", "rt"] }

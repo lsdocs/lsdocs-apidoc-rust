@@ -1,0 +1,15 @@
+# A crate for apidoc-rust's tests to document; not part of the lsdocs
+# workspace.
+[package]
+name = "geo-fixture"
+version = "0.1.0"
+edition = "2024"
+publish = false
+
+[lib]
+name = "geo"
+
+[features]
+extra = []
+
+[workspace]
