@@ -14,7 +14,12 @@
 //! [[plugins]]
 //! name = "rust"
 //! builtin = "apidoc-rust"
-//! options = { crates = ["../crates/my-crate", { path = "..", package = "other", features = ["x"] }] }
+//! ```
+//!
+//! with its settings in `.config/lsdocs/rust/settings.toml`:
+//!
+//! ```toml
+//! crates = ["../crates/my-crate", { path = "..", package = "other", features = ["x"] }]
 //! ```
 //!
 //! - **Crates** (relative to the site directory): a crate's directory or
@@ -41,7 +46,7 @@
 //!   `rs:const`, `rs:static`, `rs:macro`, `rs:field`, `rs:variant`,
 //!   `rs:mod`, `rs:obj`.
 //!
-//! Options: `crates` (required for generated pages), `toolchain` (default
+//! Settings: `crates` (required for generated pages), `toolchain` (default
 //! [`NIGHTLY`], one that writes the format this plugin reads; `""` runs
 //! cargo as found), `target_dir` (cargo's own by default), and those of
 //! the framework (`output`, `private`, `title`, `doc_format`, `doc_style`,
