@@ -252,14 +252,16 @@ fn reads_json_files_and_checks_their_format() {
 async fn documents_a_crate_with_references() {
     let page = "```{rs:currentmodule} geo\n```\n\nSee {rs:struct}`Point`, {rs:fn}`~geo::Point::norm` and {rs:trait}`shapes::Circle`.\n\n```{rs:auto} total\n```\n";
     let plugin = plugin();
-    let init = InitializeParams {
-        site: SiteInfo {
-            root: Some(root().to_string_lossy().into_owned()),
-            ..SiteInfo::default()
+    let init = lsdocs_plugin_sdk::Setup::with_settings(
+        InitializeParams {
+            site: SiteInfo {
+                root: Some(root().to_string_lossy().into_owned()),
+                ..SiteInfo::default()
+            },
+            ..InitializeParams::default()
         },
-        options: with_target(json!({"crates": ["tests/fixture"]})),
-        ..InitializeParams::default()
-    };
+        with_target(json!({"crates": ["tests/fixture"]})),
+    );
     let declared = plugin.capabilities_for(&init).syntax;
     let (guide, diagnostics) =
         lsdocs_parser_markdown::parse_with_syntax("guide.md", page, &declared);
