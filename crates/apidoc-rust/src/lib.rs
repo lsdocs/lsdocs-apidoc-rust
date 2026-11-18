@@ -97,8 +97,13 @@ impl Language for Rust {
         "::"
     }
 
-    fn settings(&self) -> &[&str] {
-        &["crates", "toolchain", "target_dir"]
+    fn settings(&self) -> &[(&str, lsdocs_plugin_sdk::config::Kind)] {
+        use lsdocs_plugin_sdk::config::Kind;
+        &[
+            ("crates", Kind::Array),
+            ("toolchain", Kind::String),
+            ("target_dir", Kind::String),
+        ]
     }
 
     fn doc_format(&self) -> &str {
