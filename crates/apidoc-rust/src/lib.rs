@@ -92,6 +92,10 @@ impl Language for Rust {
         "::"
     }
 
+    fn settings(&self) -> &[&str] {
+        &["crates", "toolchain", "target_dir"]
+    }
+
     fn doc_format(&self) -> &str {
         "md"
     }
