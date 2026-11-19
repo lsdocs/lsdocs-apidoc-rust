@@ -4,3 +4,8 @@
 nushell = "0.116.1"
 "cargo:nur" = "0.32.0"
 "cargo:cargo-deny" = "0.19.0"
+
+# rustdoc's JSON output, with the nightly the plugin runs (NIGHTLY in
+# crates/apidoc-rust/src/lib.rs).
+[hooks]
+postinstall = "rustup toolchain install nightly-2026-11-14 --profile minimal"

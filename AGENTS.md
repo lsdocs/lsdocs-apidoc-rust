@@ -43,3 +43,13 @@ shows them. `nur ci` runs what CI runs: run it before committing. Tools:
 - Licensing: `Apache-2.0 OR MIT`. Nothing is published.
 - Record what is left open in README.md's TODO section, and what the code
   does not do (or does differently) under Known limitations.
+
+## This repository
+
+README.md lists its crates and what they do. Its known limitations and
+TODO are there too; keep them current.
+
+The nightly the plugin runs (`NIGHTLY` in `crates/apidoc-rust/src/lib.rs`,
+`nightly-2026-11-14`) is named in README.md, mise.toml and the CI
+workflow; a test checks they agree. Changing it means changing
+`rustdoc-types` (pinned exactly) to the format that nightly writes.

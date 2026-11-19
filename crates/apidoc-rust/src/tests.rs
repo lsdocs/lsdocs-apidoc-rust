@@ -367,11 +367,7 @@ fn find_section<'a>(doc: &'a lsdocs_plugin_sdk::doctree::Document, id: &str) -> 
 #[test]
 fn the_nightly_is_named_the_same_everywhere() {
     let repo = root().join("../..");
-    for file in [
-        ".github/workflows/ci.yml",
-        "AGENTS.md",
-        "docs/content/plugins/index.md",
-    ] {
+    for file in [".github/workflows/ci.yml", "README.md", "mise.toml"] {
         let text = std::fs::read_to_string(repo.join(file)).unwrap();
         assert!(
             text.contains(crate::NIGHTLY),
