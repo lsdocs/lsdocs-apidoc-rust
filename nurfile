@@ -25,8 +25,30 @@ def "nur lint" [] {
     cargo-org clippy --workspace --all-targets -- -D warnings
 }
 
+# Installs the nightly toolchain apidoc-rust runs for rustdoc's JSON output:
+# the NIGHTLY constant in lsdocs-apidoc-rust's src/lib.rs (found through
+# cargo metadata, so it is the version this build uses). "" needs none.
+def nightly []: nothing -> nothing {
+    let manifest = (
+        cargo-org metadata --format-version 1 | from json | get packages
+        | where name == "lsdocs-apidoc-rust" | get 0.manifest_path
+    )
+    let found = (
+        open --raw ($manifest | path dirname | path join src lib.rs)
+        | parse --regex 'pub const NIGHTLY: &str = "(?<version>[^"]*)";'
+    )
+    if ($found | is-empty) {
+        error make --unspanned {msg: $"NIGHTLY not found beside ($manifest)"}
+    }
+    let version = $found.0.version
+    if $version != "" {
+        rustup toolchain install $version --profile minimal --no-self-update
+    }
+}
+
 # The Rust tests.
 def "nur test" [] {
+    nightly
     cargo-org test --workspace
 }
 
@@ -99,10 +121,10 @@ def "nur msrv" [] {
     cargo-org $"+($highest)" check --workspace
 }
 
-# Licenses, advisories and sources of the dependencies (deny.toml; needs
-# cargo-deny, from mise).
+# Licenses, advisories and sources of the dependencies (.config/deny.toml).
+# mise installs cargo-deny on first use (.config/mise.deny.toml).
 def "nur deny" [] {
-    cargo-org deny check
+    with-env ((org org-env) | insert MISE_ENV deny) { ^mise exec cargo:cargo-deny -- cargo deny check }
 }
 
 # Updates the lockfile's revision of organization crates (all, or one).

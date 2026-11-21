@@ -9,7 +9,7 @@ runs `cargo rustdoc` with a nightly toolchain, since the JSON format is
 unstable: the plugin names the one that writes the format it reads
 (`NIGHTLY` in `src/lib.rs`, and `rustdoc-types` pinned to match). Install
 it with `rustup toolchain install nightly-2026-11-14 --profile minimal`
-(`mise install` runs this). Its tests run rustdoc on `tests/fixture`.
+(`nur test` runs this). Its tests run rustdoc on `tests/fixture`.
 
 The plugin's settings and output are described in the lsdocs
 documentation (https://lsdocs.github.io, "apidoc-rust").
