@@ -366,13 +366,12 @@ fn find_section<'a>(doc: &'a lsdocs_plugin_sdk::doctree::Document, id: &str) -> 
 
 #[test]
 fn the_nightly_is_named_the_same_everywhere() {
-    let repo = root().join("../..");
-    for file in [".github/workflows/ci.yml", "README.md", "mise.toml"] {
-        let text = std::fs::read_to_string(repo.join(file)).unwrap();
-        assert!(
-            text.contains(crate::NIGHTLY),
-            "{file} should name {}",
-            crate::NIGHTLY
-        );
-    }
+    // README.md is the one copy of the name (nur installs the nightly from
+    // NIGHTLY itself).
+    let text = std::fs::read_to_string(root().join("../../README.md")).unwrap();
+    assert!(
+        text.contains(crate::NIGHTLY),
+        "README.md should name {}",
+        crate::NIGHTLY
+    );
 }
